@@ -51,20 +51,16 @@ def welcomepage():
         #validating the user and username
         if len(username) < 3 or len(username) >20:
             username_error = "The username you have typed does not fit the criteria. The username must be between 3 and 20 characters."
-            password = ""
-            verify = ""
+           
 
         #validating the password
         if len(password) < 3 or len(password) >20:
             password_error = "The password you have typed does not fit the criteria. The password must be between 3 and 20 characters long."
-            password = ""
-            verify = ""
-
+            
         #passwords don't match
         if verify !=password:
             verify_error ="Your passwords do not match. Please try again."
-            password =""
-            verify = ""
+            
 
         #validating the email
         if len(email) != 0:
