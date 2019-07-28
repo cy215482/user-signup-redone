@@ -11,7 +11,7 @@ def index():
     return render_template("welcomepage.html", title = "Welcome Page!")
 
 #need this in order to test the @ symbol, periods and spaces for the email
-def email_address_is_valid():
+def email_address_is_valid(email_address):
     if len(email_address) <3 or len (email_address) >20:
         return False
 
