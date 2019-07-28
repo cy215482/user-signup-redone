@@ -74,8 +74,7 @@ def welcomepage():
                 verify = ""
 
         if not username_error and not password_error and not email_error and not verify_error:
-            username = request.form['username']
-            return redirect (url_for('/welcomepage?username ={0}'.format(username)))
+            return redirect (url_for('/homepage?username ={0}'.format(username)))
 
         #make it look nice to show the render template at the end
         else:
