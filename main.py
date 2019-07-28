@@ -2,8 +2,7 @@ from flask import Flask, request, redirect, render_template
 import cgi
 import os 
 
-
-app = Flask(_name_)
+app = Flask(__name__)
 app.config['DEBUG'] = True 
 
 
