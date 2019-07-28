@@ -80,7 +80,7 @@ def welcomepage():
         #make it look nice to show the render template at the end
         else:
             return render_template("welcomepage.html", title = "Welcome Page!",
-            username = username, username_error = username_erorr,
+            username = username, username_error = username_error,
             password = password, password_error = password_error,
             verify = verify, verify_error = verify_error,
             email_address = email_address, email_error = email_error)
