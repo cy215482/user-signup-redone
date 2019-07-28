@@ -68,7 +68,7 @@ def welcomepage():
 
         #validating the email
         if len(email) != 0:
-            if email_address_is_valid == False:
+            if email_address_is_valid(email) == False:
                 email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
                 password = ""
                 verify = ""
