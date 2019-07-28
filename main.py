@@ -34,7 +34,7 @@ def email_address_is_valid(email_address):
         return True
 
 
-@app.route("/welcomepage", methods = ['POST'])
+@app.route("/welcomepage", methods = ['GET','POST'])
 def welcomepage():
 
     username_error = ""
