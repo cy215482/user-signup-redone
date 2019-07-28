@@ -36,53 +36,54 @@ def email_address_is_valid(email_address):
 
 @app.route("/welcomepage", methods = ['GET','POST'])
 def welcomepage():
+    if request.method == "POST":
 
-    username_error = ""
-    password_erorr = ""
-    verify_error = ""
-    email_error = ""
+        username_error = ""
+        password_erorr = ""
+        verify_error = ""
+        email_error = ""
 
-    username = request.form['username']
-    password = request.form['password']
-    verify = request.form['verify']
-    email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        verify = request.form['verify']
+        email = request.form['email']
 
-    #validating the user and username
-    if len(username) < 3 or len(username) >20:
-        username_error = "The username you have typed does not fit the criteria. The username must be between 3 and 20 characters."
-        password = ""
-        verify = ""
-
-    #validating the password
-    if len(password) < 3 or len(password) >20:
-        password_error = "The password you have typed does not fit the criteria. The password must be between 3 and 20 characters long."
-        password = ""
-        verify = ""
-
-    #passwords don't match
-    if verify !=password:
-        verify_error ="Your passwords do not match. Please try again."
-        password =""
-        verify = ""
-
-    #validating the email
-    if len(email) != 0:
-        if email_address_is_valid == False:
-            email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
+        #validating the user and username
+        if len(username) < 3 or len(username) >20:
+            username_error = "The username you have typed does not fit the criteria. The username must be between 3 and 20 characters."
             password = ""
             verify = ""
 
-    if not username_error and not password_error and not email_error and not verify_error:
-        username = request.form['username']
-        return redirect (url_for('/welcomepage?username ={0}'.format(username)))
+        #validating the password
+        if len(password) < 3 or len(password) >20:
+            password_error = "The password you have typed does not fit the criteria. The password must be between 3 and 20 characters long."
+            password = ""
+            verify = ""
 
-    #make it look nice to show the render template at the end
-    else:
-        return render_template("welcomepage.html", title = "Welcome Page!",
-        username = username, username_error = username_erorr,
-        password = password, password_error = password_error,
-        verify = verify, verify_error = verify_error,
-        email_address = email_address, email_error = email_error)
+        #passwords don't match
+        if verify !=password:
+            verify_error ="Your passwords do not match. Please try again."
+            password =""
+            verify = ""
+
+        #validating the email
+        if len(email) != 0:
+            if email_address_is_valid == False:
+                email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
+                password = ""
+                verify = ""
+
+        if not username_error and not password_error and not email_error and not verify_error:
+            username = request.form['username']
+            return redirect (url_for('/welcomepage?username ={0}'.format(username)))
+
+        #make it look nice to show the render template at the end
+        else:
+            return render_template("welcomepage.html", title = "Welcome Page!",
+            username = username, username_error = username_erorr,
+            password = password, password_error = password_error,
+            verify = verify, verify_error = verify_error,
+            email_address = email_address, email_error = email_error)
 
 
 
