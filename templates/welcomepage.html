@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block content %}
 <h1>Welcomepage!</h1>
-<form method="POST">
+<form action = "" method="POST">
 <table>
     <tr>
         <td><label for="username">Username</label></td>
@@ -32,6 +32,6 @@
         <td class="error">{{email_error}}</td>
     </tr>
 </table>
-<input type="submit" value="Lets get you signed up!"/>
+<input type="submit" value="Lets get you signed up!">
 </form>
 {% endblock %}
