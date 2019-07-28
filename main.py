@@ -46,7 +46,7 @@ def welcomepage():
         username = request.form['username']
         password = request.form['password']
         verify = request.form['verify']
-        email_address = request.form['email']
+        email = request.form['email']
 
         #validating the user and username
         if len(username) < 3 or len(username) >20:
