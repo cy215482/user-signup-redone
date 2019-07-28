@@ -1,124 +1,95 @@
-from flask import Flask, request, redirect, render_template, session, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, redirect, render_template 
+import cgi
+import os 
 
 
-
-
-app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
+app = Flask(_name_)
+app.config['DEBUG'] = True 
 
 
 @app.route("/")
 def index():
-    return render_template('index.html', title = "Please sign up")
+    return render_template(welcomepage.html, title = "Welcome Page!")
 
-@app.route('/signup', methods=['POST', 'GET'])
-def signup():
-    username = ""
+#need this in order to test the @ symbol, periods and spaces for the email
+def email_address_is_valid(email_address):
+    if len(email_address) <3 or len (email_address) >20:
+        return False
+
+    the_at_symbol = "@"
+    the_at_symbol_count = email_address.count(the_at_symbol)
+    if the_at_symbol !=1:
+        return False 
+
+    the_period = "."
+    the_period_count = email_address.count(the_period)
+    if the_period != 1:
+        return False 
+
+    cant_have_a_space = " "
+    cant_have_a_space_count = email_address(cant_have_a_space)
+    if cant_have_a_space != 0:
+        return False
+
+    else:
+        return True
+
+
+@app.route("/welcomepage", methods = ['POST'])
+def welcomepage():
+
     username_error = ""
-    password_error = ""
+    password_erorr = ""
     verify_error = ""
+    email_error = ""
 
-    if request.method == "POST":
+    username = request.form['username']
+    password = request.form['password']
+    verify = request.form['verify']
+    email = request.form['email']
+
+    #validating the user and username
+    if len(username) < 3 or len(username) >20:
+        username_error = "The username you have typed does not fit the criteria. The username must be between 3 and 20 characters."
+        password = ""
+        verify = ""
+
+    #validating the password
+    if len(password) < 3 or len(password) >20:
+        password_error = "The password you have typed does not fit the criteria. The password must be between 3 and 20 characters long."
+        password = ""
+        verify = ""
+
+    #passwords don't match
+    if verify !=password:
+        verify_error ="Your passwords do not match. Please try again."
+        password =""
+        verify = ""
+
+    #validating the email
+    if len(email) != 0:
+        if email_address_is_valid == False:
+            email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
+            password = ""
+            verify = ""
+
+    if not username_error and not password_error and not email_error and not verify_error:
         username = request.form['username']
-        password = request.form['password']
-        verify = request.form['verify']
+        return redirect ('/welcomepage?username ={0}'.format(username))
 
-        existing_user = User.query.filter_by(username = username).first()
-
-        if len(username) < 3:
-            username_error = "Usernames must be longer than 3 characters. Or they will not be accepted."
-            if username == "":
-                username_error = "Please enter a username."
-      
-        if password != verify:
-            password_error = "Passwords must match."
-            verify_error = "Passwords must match."
-            
-        if len(password) < 3:
-            password_error = "Password must be longer than 3 characters. Or they will not be accepted."
-            if password == "":
-                password_error = "Please enter a valid password."
-
-        if password != verify:
-            password_error = "Passwords must match."
-            verify_error = "Passwords must match."
-
-        if not username_error and not password_error and not verify_error:
-            if not existing_user:
-                new_user = User(username, password)
-                db.session.add(new_user)
-                db.session.commit()
-                session['username'] = username
-                return redirect('/newpost')
-            else:
-                username_error = "Username is already claimed. Please try another username"
-
-    return render_template('signup.html', username = username, username_error = username_error, password_error = password_error, verify_error = verify_error)
+    #make it look nice to show the render template at the end
+    else:
+        return render_template(welcomepage.html, title = "Welcome Page!",
+        username = username, username_error = username_erorr,
+        password = password, password_error = password_error,
+        verify = verify, verify_error = verify_error,
+        email_address = email_address, email_error = email_error)
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    username = ""
-    username_error = ""
-    password_error = ""
 
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username = username).first()
-
-        if not user:
-            username_error = "User does not exist."
-            return redirect ('/homepage')
-            if username == "":
-                username_error = "Please enter your username."
-                return redirect ('/welcomepage')
-
-        if password == "":
-            password_error = "Please enter your password."
-            return redirect('/welcomepage')
-   
-        if user and user.password != password:
-            password_error = "That is the wrong password."
-
-        if user and user.password == password:
-            session['username'] = username
-            return redirect('/index')
-
-    return render_template('welcomepage.html', username = username, username_error = username_error, password_error = password_error)
-
-@app.route('/newpost', methods=['POST', 'GET'])
-def create_new_post():
-    blog_title = ""
-    blog_content = ""
-    title_error = ""
-    content_error = ""
-
-    if request.method == 'POST':
-        blog_title = request.form['blog_title']
-        blog_content = request.form['blog_content']
-
-        if blog_title == "":
-            title_error = "Please enter a title!"
-
-        if blog_content == "":
-            content_error = "Please enter a post!"
-
-        if title_error == "" and content_error == "":
-            new_post = Blog(blog_title, blog_content, owner)
-            db.session.add(new_post)
-            db.session.commit()
-            blog_id = Blog.query.order_by(Blog.id.desc()).first()
-            user = owner
-
-            return redirect('/blog?id={}&user={}'.format(blog_id.id, user.username))
-
-    return render_template('newpost.html', title = "Add a new post", blog_title = blog_title, blog_content = blog_content, title_error = title_error, content_error = content_error)
-
+@app.route("/homepage")
+def homepage():
+        my_user = request.args.get(username)
+        return render_template("/homepage", my_user = my_user)
 
 app.run()

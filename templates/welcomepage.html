@@ -1,20 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{title}}</title>
-</head>
-<body>
-    <div id="navigation">
-        <ul>
-            <li><a href="/index">Blog Listing</a></li>
-            <li><a href="/homepage">Write a Post</a></li>
-            <li><a href="/welcomepage">Login</a></li>
-        </ul>
-    </div>
-    <div>
-        {% block content %}
-        {% endblock %}
-    </div>
-
-</body>
-</html>
+{% extends "index.html" %}
+{% block content %}
+<h1>Welcomepage!</h1>
+<form action"/welomepage" method="POST">
+<table>
+    <tr>
+        <td><label for="username">Username</label></td>
+        <td><input type="text" name="username" id="username" value="{{ username }}"></td>
+    </tr>
+    <tr>
+        <td class="error">{{ username_error }}</td>
+    </tr>
+    <tr>
+        <td><label for="password">Password</label></td>
+        <td><input type="password" name="password" id="password"></td>
+    </tr>
+    <tr>
+        <td class="error">{{ password_error }}</td>
+    </tr>
+    <tr>
+        <td><label for="verify">Verify Password</label></td>
+        <td><input type="password" name="verify" id="verify"></td>
+    </tr>
+    <tr>
+        <td class="error">{{ verify_error }}</td>
+    </tr>
+    <tr>
+        <td> <label for ="email address"> Email Address</label></td>
+        <td><input type="email_address" name="email" id="email" /></td>
+    </tr>
+    <tr>
+        <td class="error">{{email_error}}</td>
+    </tr>
+</table>
+<input type="submit" value="Lets get you signed up!">
+</form>
+{% endblock %}

@@ -1,11 +1,14 @@
-{% extends "homepage.html" %}
+<!doctype html>
+<html>
+    <head>
+           <title>{{title}}</title>
+            <style>
+                .error {color: orangered}
+            </style>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
 
-{% block content %}
-<title>Welcome Page</title>
-<body>
-        <h1>Welcome, {{username}}!</h1>
-
-        <p>Return to the<a href="/homepage"> sign up</a>.</p>
-
-</body>
-{% endblock %}
+</html>
