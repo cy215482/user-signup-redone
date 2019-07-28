@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template , flash
+from flask import Flask, request, redirect, render_template ,url_for, flash
 import cgi
 import os 
 
@@ -74,7 +74,7 @@ def welcomepage():
 
     if not username_error and not password_error and not email_error and not verify_error:
         username = request.form['username']
-        return redirect ('/welcomepage?username ={0}'.format(username))
+        return redirect (url_for('/welcomepage?username ={0}'.format(username)))
 
     #make it look nice to show the render template at the end
     else:
