@@ -82,7 +82,7 @@ def welcomepage():
             username = username, username_error = username_error,
             password = password, password_error = password_error,
             verify = verify, verify_error = verify_error,
-            email_address = email_address, email_error = email_error)
+            email = email, email_error = email_error)
 
 
 
