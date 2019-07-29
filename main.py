@@ -68,8 +68,7 @@ def welcomepage():
                 email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
                 
         if not username_error and not password_error and not email_error and not verify_error:
-            return redirect('/homepage?username={0}'.format(username))
-
+            return render_template("homepage.html", my_user = username)
         #make it look nice to show the render template at the end
         else:
             return render_template("welcomepage.html", title = "Welcome Page!",
