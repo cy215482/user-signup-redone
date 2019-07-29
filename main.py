@@ -25,7 +25,7 @@ def email_address_is_valid(email_address):
     if the_period != 1:
         return False 
 
-    cant_have_a_space = " "
+    cant_have_a_space = ""
     cant_have_a_space_count = email_address.count(cant_have_a_space)
     if cant_have_a_space != 0:
         return False
