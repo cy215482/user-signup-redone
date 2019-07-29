@@ -22,7 +22,7 @@ def email_address_is_valid(email_address):
 
     the_period = "."
     the_period_count = email_address.count(the_period)
-    if the_period != 1:
+    if the_period_count != 1:
         return False 
 
     cant_have_a_space = ""
