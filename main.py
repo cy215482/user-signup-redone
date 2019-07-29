@@ -82,6 +82,6 @@ def welcomepage():
 @app.route("/homepage")
 def homepage():
         my_user = request.args.get("username")
-        return render_template("homepage.html", my_user = my_user)
+        return render_template("homepage.html", my_user = username)
 
 app.run()
