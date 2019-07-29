@@ -25,7 +25,7 @@ def email_address_is_valid(email_address):
     if the_period != 1:
         return False 
 
-    cant_have_a_space = ""
+    cant_have_a_space = " "
     cant_have_a_space_count = email_address(cant_have_a_space)
     if cant_have_a_space != 0:
         return False
@@ -66,9 +66,7 @@ def welcomepage():
         if len(email) != 0:
             if email_address_is_valid(email) == False:
                 email_error = "Please enter a valid email. A valid email includes: 3-20 characters, no spaces, a @ symbol and one period. "
-                password = ""
-                verify = ""
-
+                
         if not username_error and not password_error and not email_error and not verify_error:
             return redirect (url_for('/homepage?username ={0}'.format(username)))
 
