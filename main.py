@@ -17,7 +17,7 @@ def email_address_is_valid(email_address):
 
     the_at_symbol = "@"
     the_at_symbol_count = email_address.count(the_at_symbol)
-    if the_at_symbol !=1:
+    if the_at_symbol_count !=1:
         return False 
 
     the_period = "."
